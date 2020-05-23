@@ -71,12 +71,13 @@ describe('chatterbox', function() {
         text: 'Never underestimate the power of the Schwartz!',
         roomname: 'lobby'
       };
-      MessagesView.renderMessage(message);
+      MessagesView.renderMessages([message]);
+      console.log(MessagesView.$chats.children()[0]);
       expect($('#chats').children().length).to.equal(1);
     });
 
     it('should be able to add rooms to the DOM', function() {
-      RoomsView.renderRoom('superLobby');
+      RoomsView.renderRooms(['superLobby']);
       expect($('#rooms select').children().length).to.equal(1);
     });
 
