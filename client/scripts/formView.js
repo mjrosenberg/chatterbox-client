@@ -13,11 +13,12 @@ var FormView = {
     var message = {};
     message.username = App.username;
     message.text = $("#message").val();
-    message.roomname = $("#roomName").val();
+    message.roomname = $(".roomSelector option:selected").text() || "lobby";//$("#roomName").val();
     Rooms.renderRooms();
     console.log(Messages.data);
     console.log(Rooms.rooms);
     Parse.create(message, (data)=>{
+
       var html = "";
       message.content = message.text;
       html+= MessageView.render(message);

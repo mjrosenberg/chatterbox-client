@@ -25,12 +25,16 @@ var App = {
     $('.addRoom').on('click', function () {
       //change this to
       //console.log(Rooms.getRooms());
-      var newRoom = {};
-      newRoom.roomname = $("#roomName").val();
-      if (Rooms.rooms[newRoom.roomname] === undefined){
-        Rooms.rooms[newRoom.roomname] = true;
-      }
-      $("#roomSelector").append(`$(newRoom)`);
+      var newRoom = $("#roomName").val();
+      Rooms.add(newRoom);
+
+      //moved the below to Rooms.addRoom
+      // var newRoom = {};
+      // newRoom.roomname = $("#roomName").val();
+      // if (Rooms.rooms[newRoom.roomname] === undefined){
+      //   Rooms.rooms[newRoom.roomname] = true;
+      // }
+      // $("#roomSelector").append(`$(newRoom)`);
     });
   },
 
@@ -38,7 +42,7 @@ var App = {
     Parse.readAll((data) => {
 
       Messages.data = data.results;
-      console.log("messages.data: ", Messages.data);
+      //console.log("messages.data: ", Messages.data);
       MessagesView.renderMessages(data.results);
       callback();
       console.log(data);
