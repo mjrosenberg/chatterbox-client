@@ -9,15 +9,20 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
+    //create a message object with username and text
     var message = {};
     message.username = App.username;
     message.text = $("#message").val();
-    message.roomname;
-    console.log('click!');
-    console.log(message);
-    //message object is being created correctly and added to the dataSet, but it is not immediately rendering/automatically refreshing
+    message.roomname = $("#roomName").val();
+    Rooms.renderRooms();
+    console.log(Messages.data);
+    console.log(Rooms.rooms);
     Parse.create(message, (data)=>{
-      console.log(data);
+      var html = "";
+      message.content = message.text;
+      html+= MessageView.render(message);
+
+      MessagesView.$chats.prepend(html);
     });
   },
 

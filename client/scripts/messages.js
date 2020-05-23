@@ -1,4 +1,5 @@
 var Messages = {
+  data: []
   //create messages list, make a list of all the messages
   /*
   var message = {

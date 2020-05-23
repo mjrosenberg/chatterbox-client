@@ -14,15 +14,34 @@ var App = {
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
+    //setInterval(App.fetch, 5000);
 
+    $('.refreshMessages').on('click', function () {
+
+      $('#chats').html('');
+      App.fetch((data) => {});
+    });
+
+    $('.addRoom').on('click', function () {
+      //change this to
+      //console.log(Rooms.getRooms());
+      var newRoom = {};
+      newRoom.roomname = $("#roomName").val();
+      if (Rooms.rooms[newRoom.roomname] === undefined){
+        Rooms.rooms[newRoom.roomname] = true;
+      }
+      $("#roomSelector").append(`$(newRoom)`);
+    });
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
-      console.log(data);
+
+      Messages.data = data.results;
+      console.log("messages.data: ", Messages.data);
       MessagesView.renderMessages(data.results);
       callback();
+      console.log(data);
     });
   },
 
@@ -35,4 +54,5 @@ var App = {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
   }
+
 };
